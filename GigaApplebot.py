@@ -23,12 +23,12 @@ async def Gigatrade(msg,point=None):
             rea = await bot.wait_for_reaction(['⭕','❌'],user=msg.message.author, message=msg3)
             if str(rea.reaction.emoji) == "⭕":
                 with open("GAMEPOINT.json", 'r') as fr:
-                    level = json.load(fr)
-                    if level.get(str(msg.message.author.id)) == None:
+                    point = json.load(fr)
+                    if point.get(str(msg.message.author.id)) == None:
                         await bot.say("あなたのGAMEポイントを確認できませんでした。")
                     else:
-                        gamepoint = level[str(msg.message.author.id)]['point']
-                        sendpoint=level[str(msg.message.author.id)]['point'] = level[str(msg.message.author.id)]['point'] - int(point)
+                        gamepoint = point[str(msg.message.author.id)]['point']
+                        sendpoint=point[str(msg.message.author.id)]['point'] = level[str(msg.message.author.id)]['point'] - int(point)
                         with open("GAMEPOINT.json", 'w') as fs:
                             json.dump(level,fs)
                             with open("取引.log", 'a') as log:
