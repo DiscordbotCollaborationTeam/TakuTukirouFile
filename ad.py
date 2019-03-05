@@ -29,26 +29,19 @@ async def ad(ctx):
                 await msg3.add_reaction('☑')
                 def adtuikasaisyuu(r):
                     return str(r.emoji)=="☑" and r.message_id==msg3.id and r.user_id==ctx.author.id
-                rea=await bot.wait_for('raw_reaction_add', check=adtuikasaisyuu,timeout=60)
                 try:
-                    await ctx.send("追加に成功しました。")
-                    with open("ad.json", 'r') as fr:
-                        ad=json.load(fr)
-                        if ad.get(str(ctx.author.name))==None:
-                            ad[str(ctx.author.name)]={}
-                            ad[str(ctx.author.name)]["ad"]=str(naiyou.content)
-                            ad[str(ctx.author.name)]["author"]=str(ctx.author.name)
-                            ad[str(ctx.author.name)]["count"]=5
-                        else:
-                            ad[str(ctx.author.name)]["ad"]={}
-                            ad[str(ctx.author.name)]["ad"]=str(naiyou.content)
-                            ad[str(ctx.author.name)]["author"]=str(ctx.author.name)
-                            ad[str(ctx.author.name)]["count"]=5
-                        with open("ad.json", 'w') as fr:
-                            json.dump(ad,fr)
+                    rea=await bot.wait_for('raw_reaction_add', check=adtuikasaisyuu,timeout=60)
                 except a.TimeoutError:
                     await ctx.send("タイムアウト...\nもう一度最初からやり直してください。")
-
+                await ctx.send("追加に成功しました。")
+                with open("ad.json", 'r',encoding="utf-8") as fr:
+                    ad=json.load(fr)
+                    ad[str(ctx.author.name)]={}
+                    ad[str(ctx.author.name)]["ad"]=str(naiyou.content)
+                    ad[str(ctx.author.name)]["author"]=str(ctx.author.name)
+                    ad[str(ctx.author.name)]["count"]=5
+                    with open("ad.json", 'w',encoding="utf-8") as fr:
+                        json.dump(ad,fr)
 from random import choice
 async def adtuuti():
     await bot.wait_until_ready()
